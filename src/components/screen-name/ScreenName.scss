@@ -1,0 +1,59 @@
+@import "../../consts/consts.scss";
+
+.content {
+    width: 50%;
+    max-width: 500px;
+    max-height: 300px;
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    justify-content: space-around;
+    z-index: 99999;
+    padding: 1rem;
+}
+.contentHeader {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.button {
+    flex-basis: 20%;
+    border: 1px solid $borderColorDark;
+    border-top: 0;
+    padding: .5rem 1.5rem;
+    font-size: 1.2rem;
+    color: #fff;
+    font-weight: 100;
+    cursor: pointer;
+    transition: .2s;
+}
+.submit {
+    background-color: $successColor;
+}
+.submit:hover {
+    background-color: $successHoverColor;
+}
+
+.inputWrapper {
+    border: 1px solid rgba(29, 34, 71, .2);
+    outline: none;
+    border-bottom: 0;
+    border-radius: 0;
+    font-size: 1em;
+    line-height: 1.5;
+    display: flex;
+    position: relative;
+}
+.input {
+    border: none;
+    outline: none;
+    padding: .5em 1em;
+    border-radius: 0 5px 5px 0;
+    font-size: 1em;
+    line-height: 1.5;
+    flex: 1;
+    // important To prevent text-area dragging effect rewriting width
+    width: 100% !important;
+}

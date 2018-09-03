@@ -1,0 +1,46 @@
+@import "../../consts/consts.scss";
+
+.container {
+    flex: 1;
+    padding: 2rem 1rem;
+    box-shadow: $dropShadowDarker;
+    max-width: 10rem;
+    display: flex;
+    flex-direction: column;
+    transition: .2s;
+}
+
+.playerEntry {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: .5em 0;
+}
+.playerName {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    margin-right: 1rem;
+}
+
+.header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 0;
+    text-align: center;
+}
+
+.playerCount {
+    font-size: 2em;
+}
+.playerScore {
+    color: $placeholderColor;
+    &.hasScored {
+        color: $darkText;
+    }
+}
+
+.currentPlayer {
+    color: $mainColor;
+}
