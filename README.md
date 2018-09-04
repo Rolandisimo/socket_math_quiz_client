@@ -1,4 +1,4 @@
-# Multiplayer math quiz
+# Multiplayer math quiz CLIENT
 
 ## Instalation
 `yarn`
