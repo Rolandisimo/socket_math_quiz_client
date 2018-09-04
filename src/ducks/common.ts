@@ -4,6 +4,7 @@ import {
     SET_QUIZ,
     SET_PLAYER_SCORE,
     SET_GAME_PHASE,
+    SET_ROUND_WINNER,
 } from "./consts";
 import { initialState, CommonState } from "./state";
 import {
@@ -11,7 +12,8 @@ import {
     AddPlayersAction,
     SetQuizAction,
     SetPlayerScoreAction,
-    SetGamePhase,
+    SetGamePhaseAction,
+    SetRoundWinnerAction,
 } from "./actions";
 
 export type ReducerActions =
@@ -19,7 +21,8 @@ export type ReducerActions =
     | AddPlayersAction
     | SetQuizAction
     | SetPlayerScoreAction
-    | SetGamePhase
+    | SetGamePhaseAction
+    | SetRoundWinnerAction
 ;
 
 export function commonReducer(state = initialState, action: ReducerActions): CommonState {
@@ -60,6 +63,12 @@ export function commonReducer(state = initialState, action: ReducerActions): Com
             return {
                 ...state,
                 gamePhase: action.payload,
+            };
+        }
+        case SET_ROUND_WINNER: {
+            return {
+                ...state,
+                roundWinner: action.payload,
             };
         }
         default:

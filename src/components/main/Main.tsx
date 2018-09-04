@@ -1,7 +1,7 @@
 import * as React from "react";
 import { connect } from "react-redux";
-import { Players, Player } from "../../ducks/state";
-import { selectPlayers, selectPlayer } from "../../ducks/selectors";
+import { Players, Player } from "@ducks/state";
+import { selectPlayers, selectPlayer } from "@ducks/selectors";
 import { SidebarConnected } from "../sidebar/Sidebar";
 import { Divider, DividerTheme } from "../divider/Divider";
 import { ScreenNameConnected } from "../screen-name/ScreenName";
@@ -24,7 +24,7 @@ export class Main extends React.Component<MainProps> {
 
         const playerCount = Object.keys(this.props.players).length;
         const isPlaying = player && player.isPlaying;
-        const canPlayerJoin = playerCount < 2;
+        const canPlayerJoin = playerCount < 10;
 
         const bodyComponent = !isPlaying
             ? <>

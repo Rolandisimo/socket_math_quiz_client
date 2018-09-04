@@ -13,6 +13,7 @@ export interface CommonState {
     player: Player | undefined;
     quiz: QuizType | undefined;
     gamePhase: GamePhase;
+    roundWinner: Player | undefined;
 }
 // Initial state
 export const initialState: CommonState = {
@@ -20,4 +21,5 @@ export const initialState: CommonState = {
     player: undefined,
     quiz: undefined,
     gamePhase: GamePhase.Start,
+    roundWinner: undefined,
 };

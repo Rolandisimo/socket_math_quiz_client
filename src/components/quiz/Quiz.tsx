@@ -1,13 +1,13 @@
 import * as React from "react";
 import { connect } from "react-redux";
-import { selectPlayer, selectQuiz } from "@ducks/selectors";
+import { selectPlayer, selectQuiz, selectRoundWinner } from "@ducks/selectors";
 import { Player } from "@ducks/state";
 
 import { QuizType } from "@api/types";
 
 import * as styles from "./Quiz.scss";
-import { setPlayerScoreAction } from "@ducks/actions";
-import { emitScore } from "@api/api";
+import { setPlayerScoreAction, setRoundWinnerAction } from "@ducks/actions";
+import { emitScore, emitRoundWinner } from "@api/api";
 
 export enum ButtonType {
     Yes = "true",
@@ -21,10 +21,12 @@ export interface QuizState {
 
 export interface QuizDispatchProps {
     setPlayerScore: typeof setPlayerScoreAction;
+    setRoundWinner: typeof setRoundWinnerAction;
 }
 export interface QuizStateProps {
     player: Player | undefined;
     quiz: QuizType | undefined;
+    roundWinner: Player | undefined;
 }
 export type QuizProps = QuizStateProps & QuizDispatchProps;
 
@@ -43,6 +45,7 @@ export class Quiz extends React.Component<QuizProps, QuizState> {
     }
     public componentDidUpdate(prevProps: QuizProps) {
         if (prevProps.quiz.question !== this.props.quiz.question) {
+            this.props.setRoundWinner(undefined);
             this.hasAnswered = false;
             this.resetState();
         }
@@ -113,12 +116,32 @@ export class Quiz extends React.Component<QuizProps, QuizState> {
                 isAnswerCorrect,
             });
 
-            const newScore = isAnswerCorrect
-                ? player.score + 1
-                : player.score - 1;
+            let newScore = player.score;
+            if (isAnswerCorrect) {
 
-            this.props.setPlayerScore(newScore);
+                /**
+                 * Only the first player gets
+                 * a point for a correct answer
+                 */
+                if (!this.props.roundWinner) {
+                    emitRoundWinner(player.id);
+                    newScore += 1;
+                }
+            } else {
+                /**
+                 * Wrong answers add penalty
+                 * always
+                 */
+                newScore -= 1;
+            }
+
+            /**
+             * Regardless of the result,
+             * emit the score and optimistically
+             * set player score
+             */
             emitScore(player.id, newScore);
+            this.props.setPlayerScore(newScore);
         }
     }
 }
@@ -126,9 +149,11 @@ export class Quiz extends React.Component<QuizProps, QuizState> {
 const mapStateToProps = (state: any): QuizStateProps => ({
     player: selectPlayer(state),
     quiz: selectQuiz(state),
+    roundWinner: selectRoundWinner(state),
 });
 const mapDispatchToProps: QuizDispatchProps = {
     setPlayerScore: setPlayerScoreAction,
+    setRoundWinner: setRoundWinnerAction,
 };
 export const QuizConnected = connect<QuizStateProps, QuizDispatchProps>(
     mapStateToProps,

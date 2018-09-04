@@ -10,6 +10,7 @@
     justify-content: space-around;
     z-index: 99999;
     padding: 1rem;
+    text-align: center;
 }
 .contentHeader {
     display: flex;
@@ -28,6 +29,7 @@
     font-weight: 100;
     cursor: pointer;
     transition: .2s;
+    flex-shrink: 0;
 }
 .submit {
     background-color: $successColor;
@@ -45,6 +47,7 @@
     line-height: 1.5;
     display: flex;
     position: relative;
+    flex-shrink: 0;
 }
 .input {
     border: none;
@@ -56,4 +59,10 @@
     flex: 1;
     // important To prevent text-area dragging effect rewriting width
     width: 100% !important;
+}
+
+.error {
+    margin: .5em;
+    font-size: .8em;
+    color: $warningColor;
 }

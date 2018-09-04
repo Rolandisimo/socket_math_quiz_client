@@ -10,7 +10,11 @@ if (process.env.NODE_ENV === Environment.Development) {
     baseUrl = "magic prod url";
 }
 
+// Endpoints
 export const BASE_URL = baseUrl;
+
+// Player
+export const MAX_PLAYER_COUNT = 10;
 
 // Keyboard keys
 export const ENTER_KEY_CODE = "13";

@@ -4,3 +4,4 @@ export const SET_SCREEN_NAME = "common/SET_SCREEN_NAME";
 export const SET_QUIZ = "common/SET_QUIZ";
 export const SET_PLAYER_SCORE = "common/SET_PLAYER_SCORE";
 export const SET_GAME_PHASE = "common/SET_GAME_PHASE";
+export const SET_ROUND_WINNER = "common/SET_ROUND_WINNER";

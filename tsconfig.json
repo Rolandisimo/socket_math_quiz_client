@@ -35,7 +35,9 @@
     "baseUrl": ".",
     "paths": {
       "@ducks/*": ["src/ducks/*"],
-      "@api/*": ["src/api/*"]
+      "@api/*": ["src/api/*"],
+      "@utils/*": ["src/utils/*"],
+      "@consts": ["src/consts/consts.ts"]
     }
   }
 }

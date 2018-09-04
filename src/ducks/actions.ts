@@ -5,6 +5,7 @@ import {
     SET_QUIZ,
     SET_PLAYER_SCORE,
     SET_GAME_PHASE,
+    SET_ROUND_WINNER,
 } from "./consts";
 import { Player, Players } from "./state";
 import { emitPlayer } from "../api/api";
@@ -77,13 +78,24 @@ export function setQuizAction(payload: QuizType): SetQuizAction {
     };
 }
 
-export interface SetGamePhase {
+export interface SetGamePhaseAction {
     type: typeof SET_GAME_PHASE;
     payload: GamePhase;
 }
-export function setGamePhase(payload: GamePhase): SetGamePhase {
+export function setGamePhase(payload: GamePhase): SetGamePhaseAction {
     return {
         type: SET_GAME_PHASE,
+        payload,
+    };
+}
+
+export interface SetRoundWinnerAction {
+    type: typeof SET_ROUND_WINNER;
+    payload: Player;
+}
+export function setRoundWinnerAction(payload: Player): SetRoundWinnerAction {
+    return {
+        type: SET_ROUND_WINNER,
         payload,
     };
 }
