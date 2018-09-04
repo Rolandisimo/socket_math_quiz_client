@@ -23,9 +23,11 @@
     }
 
     &.wrong {
-        background-color: red;
+        background-color: $dangerColor;
+        color: #fff;
     }
     &.correct {
-        background-color: green;
+        background-color: $successColor;
+        color: #fff;
     }
 }

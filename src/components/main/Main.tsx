@@ -9,6 +9,7 @@ import { NoSlots } from "../no-slots/NoSlots";
 import { QuizConnected } from "../quiz/Quiz";
 
 import * as styles from "./Main.scss";
+import { RoundStatusConnected } from "../round-status/RoundStatus";
 
 export interface MainStateProps {
     players: Players;
@@ -33,9 +34,10 @@ export class Main extends React.Component<MainProps> {
                     : <NoSlots />
                 }
             </>
-            : (
+            : <>
+                <RoundStatusConnected />
                 <QuizConnected />
-            );
+            </>;
 
         return (
             <div className={styles.container}>

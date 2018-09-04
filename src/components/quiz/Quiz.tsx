@@ -1,13 +1,12 @@
 import * as React from "react";
 import { connect } from "react-redux";
-import { selectPlayer, selectQuiz, selectRoundWinner } from "@ducks/selectors";
+import { selectPlayer, selectQuiz, selectRoundWinner, selectGamePhase } from "@ducks/selectors";
 import { Player } from "@ducks/state";
-
-import { QuizType } from "@api/types";
-
-import * as styles from "./Quiz.scss";
+import { QuizType, GamePhase } from "@api/types";
 import { setPlayerScoreAction, setRoundWinnerAction } from "@ducks/actions";
 import { emitScore, emitRoundWinner } from "@api/api";
+
+import * as styles from "./Quiz.scss";
 
 export enum ButtonType {
     Yes = "true",
@@ -27,6 +26,7 @@ export interface QuizStateProps {
     player: Player | undefined;
     quiz: QuizType | undefined;
     roundWinner: Player | undefined;
+    gamePhase: GamePhase;
 }
 export type QuizProps = QuizStateProps & QuizDispatchProps;
 
@@ -98,6 +98,13 @@ export class Quiz extends React.Component<QuizProps, QuizState> {
     }
 
     private changeScore = (e: React.MouseEvent<HTMLButtonElement>) => {
+        /**
+         * Don't allow players to vote when round has ended
+         */
+        if (this.props.gamePhase !== GamePhase.Start) {
+            return;
+        }
+
         const {
             player,
             quiz,
@@ -150,6 +157,7 @@ const mapStateToProps = (state: any): QuizStateProps => ({
     player: selectPlayer(state),
     quiz: selectQuiz(state),
     roundWinner: selectRoundWinner(state),
+    gamePhase: selectGamePhase(state),
 });
 const mapDispatchToProps: QuizDispatchProps = {
     setPlayerScore: setPlayerScoreAction,

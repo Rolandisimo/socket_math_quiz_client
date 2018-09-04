@@ -1,0 +1,12 @@
+@import "../../consts/consts.scss";
+
+.container {
+    display: flex;
+    align-items: center;
+    color: $darkText;
+}
+
+.countDown {
+    margin-left: .5em;
+    color: $dangerColor;
+}
