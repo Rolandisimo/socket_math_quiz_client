@@ -6,12 +6,15 @@ import {
     SET_PLAYER_SCORE,
     SET_GAME_PHASE,
     SET_ROUND_WINNER,
+    REMOVE_STICKER,
+    ADD_STICKER
 } from "./consts";
 import { Player, Players } from "./state";
 import { emitPlayer } from "../api/api";
 import { Thunk } from "../types/types";
 import { selectPlayer } from "./selectors";
 import { QuizType, GamePhase } from "@api/types";
+import { StickerData, StickerDataRaw } from "../components/sticker/types";
 
 export interface SetScreenNameAction {
     type: typeof SET_SCREEN_NAME;
@@ -97,5 +100,37 @@ export function setRoundWinnerAction(payload: Player): SetRoundWinnerAction {
     return {
         type: SET_ROUND_WINNER,
         payload,
+    };
+}
+
+export interface AddStickerAction {
+    type: typeof ADD_STICKER;
+    payload: StickerData;
+}
+export function addStickerAction(payload: StickerData): AddStickerAction {
+    return {
+        type: ADD_STICKER,
+        payload,
+    };
+}
+export function addSticker(payload: StickerDataRaw): Thunk {
+    return (dispatch) => {
+        const stickerPayload: StickerData = {
+            id: Date.now(),
+            type: payload.type,
+            posX: `${payload.posX / window.innerWidth * 100}%`,
+            posY: `${payload.posY / window.innerHeight * 100}%`,
+        };
+
+        dispatch(addStickerAction(stickerPayload));
+    };
+}
+
+export interface RemoveStickerAction {
+    type: typeof REMOVE_STICKER;
+}
+export function removeStickerAction(): RemoveStickerAction {
+    return {
+        type: REMOVE_STICKER,
     };
 }

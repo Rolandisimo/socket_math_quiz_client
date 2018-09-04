@@ -1,4 +1,5 @@
 import { QuizType, GamePhase } from "@api/types";
+import { StickerData } from "../components/sticker/types";
 
 export interface Player {
     id: string;
@@ -14,6 +15,7 @@ export interface CommonState {
     quiz: QuizType | undefined;
     gamePhase: GamePhase;
     roundWinner: Player | undefined;
+    stickers: StickerData[];
 }
 // Initial state
 export const initialState: CommonState = {
@@ -22,4 +24,5 @@ export const initialState: CommonState = {
     quiz: undefined,
     gamePhase: GamePhase.Start,
     roundWinner: undefined,
+    stickers: [],
 };

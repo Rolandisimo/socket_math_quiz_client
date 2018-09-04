@@ -1,0 +1,53 @@
+@import "../../consts/consts.scss";
+
+.container {
+    border-radius: 100px;
+    padding: 1em;
+    color: $darkText;
+    width: 0.2em;
+    height: 0.2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5em;
+    box-shadow: $dropShadowDarker;
+    transition: all .2s cubic-bezier(0, .94, 1, 1.73);
+    transform: scale(0) rotate(13deg);
+    position: fixed;
+    opacity: 0;
+    background-color: #fff;
+    font-weight: bold;
+    border: 2px solid;
+
+    &.active {
+        opacity: 1;
+        transform: scale(1) rotate(13deg);
+    }
+}
+
+.win {
+    color: $successColor;
+    border-color: $successColor;
+
+    &::before {
+        content: "+1";
+    }
+}
+
+.lose {
+    color: $dangerColor;
+    border-color: $dangerColor;
+
+    &::before {
+        content: "-1";
+    } 
+}
+
+.late {
+    color: $darkText;
+    border-color: $darkText;
+
+    &::before {
+        content: "0";
+    } 
+}

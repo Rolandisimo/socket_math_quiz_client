@@ -5,3 +5,5 @@ export const SET_QUIZ = "common/SET_QUIZ";
 export const SET_PLAYER_SCORE = "common/SET_PLAYER_SCORE";
 export const SET_GAME_PHASE = "common/SET_GAME_PHASE";
 export const SET_ROUND_WINNER = "common/SET_ROUND_WINNER";
+export const REMOVE_STICKER = "common/REMOVE_STICKER";
+export const ADD_STICKER = "common/ADD_STICKER";

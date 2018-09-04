@@ -5,6 +5,8 @@ import {
     SET_PLAYER_SCORE,
     SET_GAME_PHASE,
     SET_ROUND_WINNER,
+    ADD_STICKER,
+    REMOVE_STICKER,
 } from "./consts";
 import { initialState, CommonState } from "./state";
 import {
@@ -14,6 +16,8 @@ import {
     SetPlayerScoreAction,
     SetGamePhaseAction,
     SetRoundWinnerAction,
+    RemoveStickerAction,
+    AddStickerAction,
 } from "./actions";
 
 export type ReducerActions =
@@ -23,6 +27,8 @@ export type ReducerActions =
     | SetPlayerScoreAction
     | SetGamePhaseAction
     | SetRoundWinnerAction
+    | RemoveStickerAction
+    | AddStickerAction
 ;
 
 export function commonReducer(state = initialState, action: ReducerActions): CommonState {
@@ -69,6 +75,22 @@ export function commonReducer(state = initialState, action: ReducerActions): Com
             return {
                 ...state,
                 roundWinner: action.payload,
+            };
+        }
+        case ADD_STICKER: {
+            return {
+                ...state,
+                stickers: [...state.stickers, action.payload],
+            };
+        }
+        case REMOVE_STICKER: {
+            return {
+                ...state,
+                /**
+                 * Slice everything except the 0 index element
+                 * Expected to behave like a queue data structure
+                 */
+                stickers: state.stickers.slice(1),
             };
         }
         default:

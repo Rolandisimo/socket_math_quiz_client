@@ -1,10 +1,20 @@
 import * as React from "react";
 import { connect } from "react-redux";
-import { selectPlayer, selectQuiz, selectRoundWinner, selectGamePhase } from "@ducks/selectors";
+import {
+    selectPlayer,
+    selectQuiz,
+    selectRoundWinner,
+    selectGamePhase,
+} from "@ducks/selectors";
 import { Player } from "@ducks/state";
 import { QuizType, GamePhase } from "@api/types";
-import { setPlayerScoreAction, setRoundWinnerAction } from "@ducks/actions";
+import {
+    setPlayerScoreAction,
+    setRoundWinnerAction,
+    addSticker,
+} from "@ducks/actions";
 import { emitScore, emitRoundWinner } from "@api/api";
+import { StickerType } from "../sticker/types";
 
 import * as styles from "./Quiz.scss";
 
@@ -21,6 +31,7 @@ export interface QuizState {
 export interface QuizDispatchProps {
     setPlayerScore: typeof setPlayerScoreAction;
     setRoundWinner: typeof setRoundWinnerAction;
+    addSticker: typeof addSticker;
 }
 export interface QuizStateProps {
     player: Player | undefined;
@@ -118,6 +129,8 @@ export class Quiz extends React.Component<QuizProps, QuizState> {
             const buttonTypePressed = JSON.parse(buttonType) as boolean;
             const isAnswerCorrect = buttonTypePressed === quiz.answer;
 
+            let stickerType: StickerType;
+
             this.setState({
                 buttonTypePressed: buttonTypePressed ? ButtonType.Yes : ButtonType.No,
                 isAnswerCorrect,
@@ -133,6 +146,10 @@ export class Quiz extends React.Component<QuizProps, QuizState> {
                 if (!this.props.roundWinner) {
                     emitRoundWinner(player.id);
                     newScore += 1;
+
+                    stickerType = StickerType.Win;
+                } else {
+                    stickerType = StickerType.Late;
                 }
             } else {
                 /**
@@ -140,6 +157,7 @@ export class Quiz extends React.Component<QuizProps, QuizState> {
                  * always
                  */
                 newScore -= 1;
+                stickerType = StickerType.Lose;
             }
 
             /**
@@ -147,6 +165,11 @@ export class Quiz extends React.Component<QuizProps, QuizState> {
              * emit the score and optimistically
              * set player score
              */
+            this.props.addSticker({
+                posX: e.pageX,
+                posY: e.pageY,
+                type: stickerType,
+            });
             emitScore(player.id, newScore);
             this.props.setPlayerScore(newScore);
         }
@@ -162,6 +185,7 @@ const mapStateToProps = (state: any): QuizStateProps => ({
 const mapDispatchToProps: QuizDispatchProps = {
     setPlayerScore: setPlayerScoreAction,
     setRoundWinner: setRoundWinnerAction,
+    addSticker,
 };
 export const QuizConnected = connect<QuizStateProps, QuizDispatchProps>(
     mapStateToProps,
