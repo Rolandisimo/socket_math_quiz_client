@@ -1,0 +1,25 @@
+@import "../../consts/consts.scss";
+
+.playerEntry {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: .5em 0;
+}
+.playerName {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    margin-right: 1rem;
+}
+
+.playerScore {
+    color: $placeholderColor;
+    &.hasScored {
+        color: $darkText;
+    }
+}
+
+.currentPlayer {
+    color: $mainColor;
+}
