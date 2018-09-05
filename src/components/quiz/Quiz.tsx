@@ -52,7 +52,8 @@ export class Quiz extends React.Component<QuizProps, QuizState> {
     public shouldComponentUpdate(nextProps: QuizProps, nextState: QuizState) {
         return nextProps.quiz.question !== this.props.quiz.question
         || nextState.isAnswerCorrect !== this.state.isAnswerCorrect
-        || nextState.buttonTypePressed !== this.state.buttonTypePressed;
+        || nextState.buttonTypePressed !== this.state.buttonTypePressed
+        || nextProps.gamePhase !== this.props.gamePhase;
     }
     public componentDidUpdate(prevProps: QuizProps) {
         if (prevProps.quiz.question !== this.props.quiz.question) {
@@ -73,10 +74,14 @@ export class Quiz extends React.Component<QuizProps, QuizState> {
             isAnswerCorrect,
         } = this.state;
 
+        /**
+         * Style handling
+         */
         const buttonTrueAnswerTypeClass = buttonTypePressed === ButtonType.Yes
             && (isAnswerCorrect ? styles.correct : styles.wrong);
         const buttonFalseAnswerTypeClass = buttonTypePressed === ButtonType.No
             && (isAnswerCorrect ? styles.correct : styles.wrong);
+        const buttonDisabled = this.props.gamePhase === GamePhase.WaitingForNextGame;
 
         return (
             <div className={styles.container}>
@@ -86,6 +91,7 @@ export class Quiz extends React.Component<QuizProps, QuizState> {
                         className={`${styles.button} ${buttonTrueAnswerTypeClass}`}
                         onClick={this.changeScore}
                         data-answer-type={true}
+                        disabled={buttonDisabled}
                     >
                         Yes
                     </button>
@@ -93,6 +99,7 @@ export class Quiz extends React.Component<QuizProps, QuizState> {
                         className={`${styles.button} ${buttonFalseAnswerTypeClass}`}
                         onClick={this.changeScore}
                         data-answer-type={false}
+                        disabled={buttonDisabled}
                     >
                         No
                     </button>

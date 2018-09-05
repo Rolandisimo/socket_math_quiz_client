@@ -30,4 +30,10 @@
         background-color: $successColor;
         color: #fff;
     }
+
+    &:disabled {
+        background-color: transparent;
+        color: $borderColorLight;
+        cursor: not-allowed;
+    }
 }
