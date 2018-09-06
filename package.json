@@ -4,8 +4,9 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
+    "prestart": "npm install",
     "dev": "webpack-dev-server --progress --color --config webpack/webpack.config.development.js --watch -d",
-    "start": "npm install && npm run build",
+    "start": "npm run build",
     "prebuild": "rimraf ./dist/*",
     "build": "NODE_ENV=production webpack --color --config webpack/webpack.config.production.js",
     "test:watch": "jest --watchAll",
