@@ -4,9 +4,9 @@ enum Environment {
 }
 
 let baseUrl;
-const PORT = process.env.PORT || "8000";
+const PORT = process.env.PORT || "5000";
 if (process.env.NODE_ENV === Environment.Development) {
-    baseUrl = "http://localhost:8000";
+    baseUrl = `http://localhost:${PORT}`;
 } else if (process.env.NODE_ENV === Environment.Production) {
     baseUrl = `https://mathyquiz-server.herokuapp.com:${PORT}`;
 }
