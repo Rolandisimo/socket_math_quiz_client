@@ -1,5 +1,7 @@
 # Multiplayer math quiz CLIENT
 
+DEMO GAME: https://mathyquiz-server.herokuapp.com/
+
 ## Instalation
 # dev
 `yarn`
