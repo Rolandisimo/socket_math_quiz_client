@@ -64,7 +64,7 @@
     "file-loader": "^1.1.6",
     "fork-ts-checker-notifier-webpack-plugin": "^0.2.0",
     "fork-ts-checker-webpack-plugin": "^0.2.8",
-    "html-webpack-plugin": "^2.28.0",
+    "html-webpack-plugin": "^5.5.0",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^23.1.0",
     "jest-junit": "^3.1.0",
